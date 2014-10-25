@@ -7,7 +7,9 @@ from os.path import expanduser
 
 def parse_diff(diff_url):
     diff = urllib2.urlopen(diff_url).read()
-    return [match[13:].split(" ")[0] for match in re.findall('^diff --git.*', diff)]
+    #print diff
+    diff_list = [match[13:].split(" ")[0] for match in re.findall(r'diff --git .*', diff)]
+    return diff_list
     # print diff
 
 
