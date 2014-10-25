@@ -1,5 +1,10 @@
+div.blob-wrapper {
+  overflow-y: visible;
+  overflow-x: scroll;
+}
+
 tr.cchub-notification td {
-  background: rgba(0, 0, 255, 0.41);
+  //  background: rgba(0, 0, 255, 0.41);
 
   & .cchub-more-btn {
     text-indent: 0;
@@ -11,77 +16,132 @@ tr.cchub-notification td {
     cursor: pointer;
     border: 1px solid transparent;
     height: 18px;
-    position: relative;
+    -webkit-transition: all 0.2s ease;
+    -webkit-transition-delay: 0.1s;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
 
     &:hover {
+      -webkit-transition-delay: 0s;
       color: #333;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-      background-color: #eee;
-      background-image: -webkit-linear-gradient(#fcfcfc, #eee);
-      background-image: linear-gradient(#fcfcfc, #eee);
+      background-color: #f9f9f9;
+      background-image: -webkit-linear-gradient(#fcfcfc, #f9f9f9);
+      background-image: linear-gradient(#fcfcfc, #f9f9f9);
       background-repeat: repeat-x;
       border: 1px solid #d5d5d5;
-      border-radius: 3px;
       -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
       -webkit-appearance: none;
+      border-bottom-color: #f9f9f9;
+      z-index: 2;
+
     }
 
     .cchub-icon {
+      position: relative;
       display: inline-block;
       vertical-align: middle;
       width: 14px;
       height: 14px;
       background-size: 14px 14px;
+      margin: 0 2px;
       background-repeat: no-repeat;
       float: left;
+
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: -2px; right: -3px;
+        height: 1px;
+
+//        background: #f90061;
+        background: #f9f9f9;
+        z-index: 5;
+        margin-left: -1px;
+        opacity: 0;
+        -webkit-transition: all 0.2s ease;
+      }
     }
 
-    & + .cchub-tooltip {
-      height: 0;
-      -webkit-transition: max-height 0.2s ease;
+    &:hover .cchub-icon:before {
+      opacity: 1;
     }
 
-    &:hover + .cchub-tooltip {
-      height: auto;
-//      display: block;
-//      position: absolute;
-//      bottom: 18px;
-//      left: 0;
+    & .cchub-tooltip {
+      opacity: 0;
+      z-index: -1;
+      -webkit-transition: all 0.2s ease;
+      position: absolute;
+      left: -1px;
+      right: -1px;
+      top: 100%;
+      margin-top: -1px;
       padding: 20px;
-      background: white;
+      border: 1px solid #d5d5d5;
+      background-color: #eee;
+      background-image: -webkit-linear-gradient(#f9f9f9, #eee);
+      background-image: linear-gradient(#f9f9f9, #eee);
+      background-repeat: repeat-x;
+      border-radius: 3px;
+      -webkit-touch-callout: none;
+      -webkit-transition-delay: 0.1s;
+    }
+
+    &:hover .cchub-tooltip {
+      -webkit-transition-delay: 0s;
+      opacity: 1;
+      z-index: 3;
     }
   }
 }
 
-.cchub-notification.cchub-warning .cchub-icon {
+.cchub-warning.cchub-icon {
   background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/warning.png);
+//  -webkit-mask: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/warning.png) top left / cover;
 }
 
-.cchub-notification.cchub-style .cchub-icon {
+.cchub-style.cchub-icon {
   background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/style.png);
 }
 
-.cchub-notification.cchub-performance .cchub-icon {
+.cchub-performance.cchub-icon {
   background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/performance.png);
 }
 
-.cchub-notification.cchub-portability .cchub-icon {
+.cchub-portability.cchub-icon {
   background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/portability.png);
 }
 
-.cchub-notification.cchub-information .cchub-icon {
+.cchub-information.cchub-icon {
   background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/information.png);
 }
 
-.cchub-notification.cchub-unusedFunction .cchub-icon {
+.cchub-unusedFunction.cchub-icon {
   background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/unusedFunction.png);
 }
 
-.cchub-notification.cchub-missingInclude .cchub-icon {
+.cchub-missingInclude.cchub-icon {
   background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/missingInclude.png);
+}
+
+.cchub-error.cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/error.png);
+}
+
+#scrollbar-hint {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  background: red;
+
+  .item {
+    background: black;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
 }
