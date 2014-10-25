@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+
+    "name": "cchub",
+    "description": "cchub description",
+    "version": "1.0",
+
+    "permissions": [
+        "https://github.com/*",
+        "https://students.mimuw.edu.pl/*",
+        "http://students.mimuw.edu.pl/*",
+        "tabs"
+    ],
+
+    "web_accessible_resources": ["/img/*.png"],
+
+    "content_scripts": [
+        {
+            "matches": ["https://github.com/*/pull/*"],
+            "js": ["js/jquery.js", "js/cchub.js"],
+            "css": ["styles/cchub.css"]
+        }
+    ]
+}
