@@ -1,2 +1,0 @@
-read_lines: read_lines.cpp
-	g++ read_lines.cpp -o read_lines -Wall -g -lboost_regex
