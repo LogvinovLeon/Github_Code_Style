@@ -20,23 +20,21 @@ def download_all_the_shit(d_url, br_name):
         temp = d_url.split('/')[3:5]
         temp.extend([br_name, _file])
         fi_url = "https://raw.githubusercontent.com/" + '/'.join(temp)
-        # print fi_url
         if not os.path.exists(os.path.dirname(my_path_file)):
             if os.path.dirname(my_path_file):
                 os.makedirs(os.path.dirname(my_path_file))
         with open(my_path_file, "w") as text_file:
-            # print my_path_file
             try:
                 text_file.write(urllib2.urlopen(fi_url).read())
             except:
-                pass
+		pass
     return full_folder_name
 
 
 def cpp_check(full_folder_name):
     process = subprocess.Popen(
-        ["/home/leonid/cppcheck", "--enable=all", "--inconclusive", "--std=posix", full_folder_name + "/*"],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        [expanduser("~") + "/cppcheck", "--enable=all", "--inconclusive", "--std=posix", full_folder_name + "/*"],
+        stderr=subprocess.PIPE)
     process.wait()
     (_, err) = process.communicate()
     return err.split("\n")
@@ -64,5 +62,3 @@ def parse_cppcheck_result(res, id, full_folder_name):
 def get_pull_request_id(diff_url):
     return diff_url.split("/")[-1:][0].split('.')[0]
 
-#diff_url = "https://github.com/LogvinovLeon/Github_Code_Style/pull/6.diff"
-#branch_name = "test"
