@@ -1,0 +1,87 @@
+tr.cchub-notification td {
+  background: rgba(0, 0, 255, 0.41);
+
+  & .cchub-more-btn {
+    text-indent: 0;
+    display: inline-block;
+    margin-left: 5px;
+    padding: 1px;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    height: 18px;
+    position: relative;
+
+    &:hover {
+      color: #333;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+      background-color: #eee;
+      background-image: -webkit-linear-gradient(#fcfcfc, #eee);
+      background-image: linear-gradient(#fcfcfc, #eee);
+      background-repeat: repeat-x;
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-appearance: none;
+    }
+
+    .cchub-icon {
+      display: inline-block;
+      vertical-align: middle;
+      width: 14px;
+      height: 14px;
+      background-size: 14px 14px;
+      background-repeat: no-repeat;
+      float: left;
+    }
+
+    & + .cchub-tooltip {
+      height: 0;
+      -webkit-transition: max-height 0.2s ease;
+    }
+
+    &:hover + .cchub-tooltip {
+      height: auto;
+//      display: block;
+//      position: absolute;
+//      bottom: 18px;
+//      left: 0;
+      padding: 20px;
+      background: white;
+    }
+  }
+}
+
+.cchub-notification.cchub-warning .cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/warning.png);
+}
+
+.cchub-notification.cchub-style .cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/style.png);
+}
+
+.cchub-notification.cchub-performance .cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/performance.png);
+}
+
+.cchub-notification.cchub-portability .cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/portability.png);
+}
+
+.cchub-notification.cchub-information .cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/information.png);
+}
+
+.cchub-notification.cchub-unusedFunction .cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/unusedFunction.png);
+}
+
+.cchub-notification.cchub-missingInclude .cchub-icon {
+  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/missingInclude.png);
+}
