@@ -13,8 +13,11 @@ def get_post(request):
     print diff_url
     print branch_name
     pull_request_id = get_pull_request_id(diff_url)
+    print pull_request_id
     full_folder_name = download_all_the_shit(diff_url, branch_name)
+    print full_folder_name
     res = cpp_check(full_folder_name)
+    print res
     with open(full_folder_name + "/result.json", "w") as text_file:
         try:
             text_file.write(json.dumps(parse_cppcheck_result(res, pull_request_id, full_folder_name), indent=2))
