@@ -43,9 +43,6 @@ function applyNotifications(data) {
 
     files.forEach(function (item) {
         item.notifications.forEach(function (notif) {
-//            console.log('filename', item.filename);
-//            console.log('notif', notif);
-//            console.log('.blob-code b[data-path="' + item.filename + '"][data-line="' + notif.line + '"]');
             var b = $('.blob-code b[data-path="' + item.filename + '"][data-line="' + notif.line + '"]');
 
             b.parent().parent().addClass('cchub-notification');
@@ -57,7 +54,8 @@ function applyNotifications(data) {
                     '</div>'
             );
 
-//            $('#scrollbar-hint').append('<div class="item" style="' + top + '"></div>')
+            //var top =
+            //$('#scrollbar-hint').append('<div class="item" style="' + top + '"></div>')
 
             notif.type.forEach(function (type) {
                 b.parent().children('.cchub-more-btn:last-child').append(

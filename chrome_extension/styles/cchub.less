@@ -1,3 +1,6 @@
+@extension-prefix: "chrome-extension://__MSG_@@pagjofeicoefimgncpajplpobpeebbdh/";
+
+
 div.blob-wrapper {
   overflow-y: visible;
   overflow-x: scroll;
@@ -98,36 +101,36 @@ tr.cchub-notification td {
 }
 
 .cchub-warning.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/warning.png);
+  background-image: url(@{extension-prefix}img/warning.png);
 //  -webkit-mask: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/warning.png) top left / cover;
 }
 
 .cchub-style.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/style.png);
+  background-image: url(@{extension-prefix}img/style.png);
 }
 
 .cchub-performance.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/performance.png);
+  background-image: url(@{extension-prefix}img/performance.png);
 }
 
 .cchub-portability.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/portability.png);
+  background-image: url(@{extension-prefix}img/portability.png);
 }
 
 .cchub-information.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/information.png);
+  background-image: url(@{extension-prefix}img/information.png);
 }
 
 .cchub-unusedFunction.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/unusedFunction.png);
+  background-image: url(@{extension-prefix}img/unusedFunction.png);
 }
 
 .cchub-missingInclude.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/missingInclude.png);
+  background-image: url(@{extension-prefix}img/missingInclude.png);
 }
 
 .cchub-error.cchub-icon {
-  background-image: url(chrome-extension://__MSG_@@ahpadhgdbgfjapemcnmiejjfbficibkd/img/error.png);
+  background-image: url(@{extension-prefix}img/error.png);
 }
 
 #scrollbar-hint {
@@ -136,7 +139,7 @@ tr.cchub-notification td {
   right: 0;
   bottom: 0;
   width: 10px;
-  background: red;
+  background: green;
 
   .item {
     background: black;
