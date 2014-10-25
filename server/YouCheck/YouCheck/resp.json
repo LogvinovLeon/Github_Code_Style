@@ -1,0 +1,30 @@
+{
+    "pull": 1,
+    "files": [
+        {
+            "filename": "README.md",
+            "notifications": [
+                {
+                    "type": "information",
+                    "content": "this is an info message",
+                    "line": 4
+                },
+                {
+                    "type": "warning",
+                    "content": "son-of-a-bitch",
+                    "line": 7
+                }
+            ]
+        },
+        {
+            "filename": "test 18:19",
+            "notifications": [
+                {
+                    "type": "unusedFunction",
+                    "content": "dont do that!",
+                    "line": 1
+                }
+            ]
+        }
+    ]
+}

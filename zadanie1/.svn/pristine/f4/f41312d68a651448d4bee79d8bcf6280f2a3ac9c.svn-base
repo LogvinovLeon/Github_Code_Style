@@ -1,0 +1,102 @@
+#include <iostream>
+#include <string>
+#include <boost/regex.hpp>
+#include <vector>
+#include <utility>
+
+using namespace std;
+using namespace boost;
+
+void reportError(unsigned long long line, const string& text = "")
+{
+    cerr << "Error in line " << line << ":" << text << endl;
+}
+
+const string NUMBER(R"((-?[1-9]\d{0,9}))");
+
+bool lastLine(const string& text, long& year1, long& year2)
+{
+    regex regexp(NUMBER + R"(\s+)" + NUMBER + R"(\s*)");
+    smatch match;
+
+    if(!regex_match(text, match, regexp))
+        return false;
+
+    year1 = stoi(match[1].str());
+    year2 = stoi(match[2].str());
+    return true;
+}
+
+bool parseRecord(const string& text, string& description, long& year)
+{
+    regex regexp(R"(^([^\s].*?)(?:\s+)" + NUMBER + R"(\s*))");
+    smatch match;
+
+    if(!regex_match(text, match, regexp))
+        return false;
+
+    description = match[1].str();
+    year = stoi(match[2].str());
+    return true;
+}
+
+bool readInput(vector<pair<long, string>>& coins, long& year1, long& year2)
+{
+    string text, description;
+    long year;
+    bool lastLineOccured = false;
+    unsigned long long line = 1;
+
+    while(!lastLineOccured && getline(cin, text)) {
+        if(lastLine(text, year1, year2)) {
+            lastLineOccured = true;
+        } else if(parseRecord(text, description, year)) {
+            pair<long, string> coin(year, description);
+            coins.push_back(coin);
+        } else {
+            reportError(line, text);
+        }
+
+        line++;
+    }
+
+    while(getline(cin, text)) {
+        reportError(line, text);
+        line++;
+    }
+
+    if(!lastLineOccured) {
+        reportError(line);
+        return false;
+    }
+
+    return true;
+}
+
+void print(vector<pair<long, string>>& coins, long year1, long year2)
+{
+    cout << "Monety:" << endl;
+    cout << "--------------------------------" << endl;
+
+    for(pair<long, string>& rec : coins) {
+        cout << "Opis: '" << rec.second << "'" << endl << "Data wybicia: " << rec.first << endl;
+        cout << "--------------------------------" << endl;
+    }
+
+    cout << year1 << " < " << year2 << endl;
+}
+
+int main()
+{
+    vector<pair<long, string>> coins;
+    long year1, year2;
+
+    if(readInput(coins, year1, year2)) {
+
+        // ...
+
+        print(coins, year1, year2);
+    }
+
+    return 0;
+}

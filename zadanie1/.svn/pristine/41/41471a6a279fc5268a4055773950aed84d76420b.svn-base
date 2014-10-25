@@ -1,0 +1,46 @@
+enum LineType { DESCRIPTION,
+                INCORRECT_LINE,
+                PROPER_CLOSING_LINE,
+                IMPROPER_CLOSING_LINE };
+
+LineType check_line(const string& line, int& year1, int& year2, string& description)
+{
+    boost::regex line_expr ("([!-~].*?)\\s+(-?[1-9]\\d{0,4})\\s*");
+    boost::smatch line_match;
+
+    if (boost::regex_match(line, line_match, line_expr))
+    {
+        year2 = stoi(line_match[2]);
+
+        boost::regex digits_expr ("(-?[1-9]\\d*)");
+        boost::smatch digits_match;
+
+        //zamiast nowej zmiennej można od razu nadpisać string description, ale w tym momencie jeszcze nie wiadomo, czy to poprawny opis
+        string first_group = line_match[1]; //z jakiegoś powodu nie mogę podać bezpośrednio line_match[1] jako argument do regex_match
+
+        if (boost::regex_match(first_group, digits_match, digits_expr))
+        {
+            string digits_str = digits_match[1];
+            int len = digits_str.length();
+
+            if (len > 6 || (len == 6 && digits_str[0] != '-'))
+                return /*LineType::*/INCORRECT_LINE;
+
+            year1 = stoi(digits_match[1]);
+
+            if(year1 >= year2)
+                return /*LineType::*/IMPROPER_CLOSING_LINE;
+            else
+                return /*LineType::*/PROPER_CLOSING_LINE;
+        }
+        else
+        {
+            description = first_group;
+            return /*LineType::*/DESCRIPTION;
+        }
+    }
+    else
+    {
+        return /*LineType::*/INCORRECT_LINE;
+    }
+}
