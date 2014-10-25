@@ -1,2 +1,0 @@
-monety: monety.cpp
-	g++ monety.cpp -o monety -Wall -g -lboost_regex -std=c++0x

@@ -1,2 +1,0 @@
-read_lines2: read_lines2.cpp
-	g++ read_lines2.cpp -o read_lines2 -Wall -g -lboost_regex -std=c++0x
