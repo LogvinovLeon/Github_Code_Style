@@ -1,0 +1,104 @@
+=== Zadanie Monety ===
+
+Napisz program sortujący listę opisującą kolekcję monet. Program czyta
+dane ze standardowego wejścia, wypisuje posortowaną listę na
+standardowe wyjście, a informacje o błędach sygnalizuje na
+standardowym wyjściu błędów.
+
+Jeden wiersz danych wejściowych opisuje jedną monetę i zawiera dowolny
+opis monety i rok jej wybicia. Niezależnie od tego, jak na monecie
+oznaczony jest jej rok wybicia, na liście jest on zapisywany jako
+liczba dziesiętna. Lata przed naszą erą są zapisywane jako liczby
+ujemne. Nie ma roku 0 -- po roku -1 następuje rok 1. Dane wejściowe
+kończą się wierszem zawierającym tylko dwie liczby oznaczające rok:
+r1 i r2, gdzie r1 < r2. Rok wybicia od opisu monety oddzielony jest
+białym polem, które jest białym znakiem lub ciągiem białych znaków.
+Wartości r1 i r2 są również oddzielone białym polem. Białe znaki mogą
+też występować na końcu każdego wiersza.
+
+Program sortuje listę monet najpierw według roku wybicia, a potem
+leksykograficznie według opisu. Program wypisuje informację o każdej
+monecie w osobnym wierszu. Najpierw jej opis dokładnie tak, jak
+wystąpił w danych wejściowych (bez białego pola rozdzielającego opis
+i rok wybicia), a potem spację i rok wybicia. Na końcu wiersza
+wyjściowego nie wypisuje żadnych białych znaków. Najpierw wypisuje
+monety wybite przed rokiem r1 -- posortowane rosnąco, potem monety
+wybite w latach r1 do r2-1 -- posortowane malejąco, a na koniec monety
+wybite w roku r2 i później -- posortowane rosnąco.
+
+Program musi być odporny na niezgodność formatu danych wejściowych ze
+specyfikacją, również na brak wiersza kończącego dane wejściowe. Dla
+każdego niezgodnego ze specyfikacją wiersza w danych wejściowych
+program wypisuje na standardowe wyjście błędów komunikat w formacie:
+
+Error in line N:WIERSZ
+
+gdzie N jest numerem błędnego wiersza (wiersze numerujemy od 1),
+a WIERSZ to błędny wiersz w oryginalnej postacji (z zachowaniem
+wszystkich białych pól), w jakiej został wczytany przez program.
+Niepoprawne wiersze w danych wejściowych nie są dalej przetwarzane.
+Jeśli nie podano wiersza końcowego, program wypisuje komunikat
+
+Error in line N:
+
+gdzie N jest oczekiwanym numerem wiersza końcowego, i kończy
+działanie.
+
+Przykładowo, dla danych wejściowych:
+
+50 Eurocents 2002
+1 grosz 1950
+Denar z czasow Republiki   -218
+1 kopiejka 1950
+Denar Septymiusza Sewera z 204 r. 204
+Denar rzymski 204
+50 Eurocents 2001
+
+1 marka 1951
+Kwadrygat -250
+Denar 204
+Rubel  Piotra I
+101
+50 Cents 2001
+Dime 2001
+1950 1952
+
+program wypisuje na standardowym wyjściu:
+
+Kwadrygat -250
+Denar z czasow Republiki -218
+Denar 204
+Denar Septymiusza Sewera z 204 r. 204
+Denar rzymski 204
+1 marka 1951
+1 kopiejka 1950
+1 grosz 1950
+50 Cents 2001
+50 Eurocents 2001
+Dime 2001
+50 Eurocents 2002
+
+a na standardowym wyjściu błędów:
+
+Error in line 8:
+Error in line 12:Rubel  Piotra I
+Error in line 13:101
+
+Oczekiwane rozwiązanie nie powinno zawierać definicji własnych
+struktur i klas. Zamiast tego należy intensywnie korzystać
+z kontenerów i algorytmów dostarczanych przez standardową bibliotekę
+języka C++. W szczególności do sortowania i wyszukiwania należy użyć
+efektywnych algorytmów. Rozwiązanie należy umieścić w pliku monety.cc,
+który należy umieścić w repozytorium w katalogu
+
+grupaN/zadanie1/ab123456+cd123456
+
+lub
+
+grupaN/zadanie1/ab123456+cd123456+ef123456
+
+gdzie N jest numerem grupy, a ab123456, cd123456, ef123456 są
+identyfikatorami członków zespołu umieszczającego to rozwiązanie.
+Katalog z rozwiązaniem nie powinien zawierać innych plików, ale może
+zawierać podkatalog private, gdzie można umieszczać różne pliki, np.
+swoje testy. Pliki umieszczone w tym podkatalogu nie będą oceniane.

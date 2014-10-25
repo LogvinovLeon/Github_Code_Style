@@ -1,0 +1,73 @@
+#include <string>
+#include <boost/regex.hpp>
+#include <list>
+
+using namespace boost;
+using namespace std;
+
+int main()
+{
+    // deklaracja zmiennych
+    string str;
+    regex   pattern ("(\\S.*?)\\s+(-?[1-9]\\d*)\\s*");
+    smatch sm;
+    list<pair<int, string> > lines;
+    int line_num = 1;
+    int r1, r2;
+    
+    // wczytanie inputu
+    //TODO trzeba jakoś sprawdzić, czy w ogóle wczytaliśmy wiersz końcowy
+    while (getline(cin, str))
+    {
+        if (regex_match(str, sm, pattern))
+        {
+            try
+            {
+                r2 = stoi(sm[2]);
+                if (r2 == 0)
+                    cerr << "Error in line " << line_num << ":"  << str << endl;
+            }
+            catch (out_of_range& e)
+            {
+                cerr << "Error in line " << line_num << ":"  << str << endl;
+                continue;
+            }
+
+            try
+            {
+                r1 = stoi(sm[1]);
+                if (r1 == 0) //TODO zakładam tutaj, że 0 nie jest poprawnym opisem, ale pewnie jest
+                    cerr << "Error in line " << line_num << ":"  << str << endl;
+            }
+            catch (out_of_range& e)
+            {
+                cerr << "Error in line " << line_num << ":"  << str << endl;
+            }
+            catch (invalid_argument& e)
+            {
+                lines.push_back(make_pair(r2, sm[1]));
+                cout << ">>> " << sm[1] << " " << r2 << endl; //TODO "sanity check", do usunięcia później
+                continue;
+            }
+
+            //Jeśli jesteśmy w tym miejscu, to wczytaliśmy wiersz końcowy
+            break;
+        }
+	    else
+        {
+            //TODO ta linijka się powtarza, pewnie lepiej zrobić z tego funkcję
+            cerr << "Error in line " << line_num << ":"  << str << endl;
+        }
+
+        line_num++;
+    }
+
+    //TODO sortowi można zapodać funkcję porównującą sortowane elementy, żeby sortował wedle naszych potrzeb
+    //choć chyba wystarczy zamienić pary (opis, rok) na pary (rok, opis), żeby posortował tak jak chcemy
+    lines.sort();
+
+    for (list<pair<int, string> >::const_iterator i = lines.begin(); i != lines.end(); i++)
+        cout << (*i).second << " " << (*i).first << endl;
+
+    return 0;
+}
