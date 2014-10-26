@@ -24,9 +24,12 @@ def get_post(request):
 @csrf_exempt
 def client(request, user_name, repo_name, pull_id):
     file_name = os.path.join(expanduser("~"),
-                             "pull_request", '#'.join([user_name, repo_name, pull_id + ".diff"]),
+                             "pull_requests", '#'.join([user_name, repo_name, "pull", pull_id + ".diff"]),
                              "result.json")
+    print file_name
     if os.path.exists(file_name):
-        with open(file_name, "w") as _file:
-            return HttpResponse(_file.read())
-    return Http404()
+	with open(file_name, "r") as _file:
+            content = _file.read()
+	    print content
+	    return HttpResponse(content, mimetype='application/json')
+    return HttpResponce(status=102)
