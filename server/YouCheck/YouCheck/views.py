@@ -17,12 +17,12 @@ def get_post(request):
     with open(full_folder_name + "/result.json", "w") as text_file:
         # try:
         #pull_request_id
-        cpp_check = parse_cppcheck_result(res, full_folder_name)
+        ccheck = parse_cppcheck_result(res, full_folder_name)
         formatting = astyle_check(full_folder_name)
         dict = {
             x.filename: {
                 x.notifications,
-            } for x in cpp_check
+            } for x in ccheck
         }
 
         print "FORMATTING###"
