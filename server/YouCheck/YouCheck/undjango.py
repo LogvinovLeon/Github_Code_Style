@@ -8,8 +8,10 @@ import json
 
 def parse_diff(diff_url):
     diff = urllib2.urlopen(diff_url).read()
-    diff_list = [match[13:].split(" ")[0] for match in re.findall(r'diff --git .*', diff)]
+    diff_list = [match[13:].split(" ")[0] for match in
+                 re.findall(r'diff --git .*', diff)]
     return diff_list
+
 
 def download_all_the_shit(d_url, br_name):
     f_name = '#'.join(d_url.split('/')[-4:])
@@ -27,18 +29,28 @@ def download_all_the_shit(d_url, br_name):
             try:
                 text_file.write(urllib2.urlopen(fi_url).read())
             except:
-		pass
+                pass
     return full_folder_name
 
 
 def cpp_check(full_folder_name):
     process = subprocess.Popen(
-        [expanduser("~") + "/cppcheck", "--enable=all", "--inconclusive", "--std=posix", full_folder_name + "/*"],
+        [expanduser("~") + "/cppcheck", "--enable=all", "--inconclusive",
+         "--std=posix", full_folder_name + "/*"],
         stderr=subprocess.PIPE)
     process.wait()
     (_, err) = process.communicate()
     return err.split("\n")
 
+def astyle_check(full_folder_name):
+    process = subprocess.Popen(
+        ['./run_astyle.sh', full_folder_name + '/'],
+        stderr=subprocess.PIPE)
+    process.wait()
+    (_, err) = process.communicate()
+    print err
+    return err.split('\n')
+    )
 
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}
@@ -47,7 +59,8 @@ def parse_cppcheck_result(res, id, full_folder_name):
             if line[0:len(full_folder_name) + 1] == "[" + full_folder_name:
                 nline = line[len(full_folder_name) + 2:]
                 phrases = nline.split(":", 2)
-                (_file, ln, tmp) = (phrases[0], phrases[1][:-1], phrases[2][1:])
+                (_file, ln, tmp) = (
+                phrases[0], phrases[1][:-1], phrases[2][1:])
                 desc = tmp.split(") ", 1)
                 types = desc[0][1:].split(", ")
                 desc = desc[1]
@@ -56,8 +69,10 @@ def parse_cppcheck_result(res, id, full_folder_name):
                     ddict[_file].extend([noti])
                 else:
                     ddict[_file] = [noti]
-    tab = [{"filename": key, "notifications": value} for key, value in ddict.iteritems()]
+    tab = [{"filename": key, "notifications": value} for key, value in
+           ddict.iteritems()]
     return {"pull": id, "files": tab}
+
 
 def get_pull_request_id(diff_url):
     return diff_url.split("/")[-1:][0].split('.')[0]

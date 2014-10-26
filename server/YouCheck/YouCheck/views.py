@@ -19,6 +19,7 @@ def get_post(request):
             text_file.write(json.dumps(parse_cppcheck_result(res, pull_request_id, full_folder_name), indent=2))
         except:
             pass
+    astyle_check(full_folder_name)
     return HttpResponse(request)
 
 @csrf_exempt
@@ -32,4 +33,4 @@ def client(request, user_name, repo_name, pull_id):
             content = _file.read()
 	    print content
 	    return HttpResponse(content, mimetype='application/json')
-    return HttpResponce(status=102)
+    return HttpResponse(status=102)
