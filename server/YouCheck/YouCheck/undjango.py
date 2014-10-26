@@ -44,7 +44,7 @@ def cpp_check(full_folder_name):
 
 def astyle_check(full_folder_name):
     process = subprocess.Popen(
-        [expanduser("~") + '/run_astyle.sh', full_folder_name + '/'],
+        ['./run_astyle.sh', full_folder_name + '/'],
         stderr=subprocess.PIPE)
     process.wait()
     (_, err) = process.communicate()
