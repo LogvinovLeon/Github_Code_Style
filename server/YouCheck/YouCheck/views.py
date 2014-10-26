@@ -34,8 +34,7 @@ def get_post(request):
                 pass
                 # dict[x['filename']] =  x['notifications']
             else:
-                pass
-                # dict[x['filename']].extend(x['notifications'])
+                dict[x['filename']].extend(x['notifications'])
 
         merged = [
             {
