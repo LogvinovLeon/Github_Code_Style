@@ -84,9 +84,12 @@ def astyle_check(full_folder_name):
                 current_file['notifications'].append(current_interval)
 
             current_interval = {
-                'begin': begin,
-                'end': end,
+                'lines': {
+                    'begin': begin,
+                    'end': end,
+                }
                 'content': '',
+                'type': ['formatting']
             }
         elif old_line is not None:
             print "this is old line, ignoring"
@@ -116,7 +119,7 @@ def astyle_check(full_folder_name):
 
     return files
 
-def parse_cppcheck_result(res, id, full_folder_name):
+def parse_cppcheck_result(res, full_folder_name):
     ddict = {}
     for line in res:
         if len(line) > 0:
@@ -128,14 +131,22 @@ def parse_cppcheck_result(res, id, full_folder_name):
                 desc = tmp.split(") ", 1)
                 types = desc[0][1:].split(", ")
                 desc = desc[1]
-                noti = {"type": types, "content": desc, "line": ln}
+                noti = {
+                    "type": types,
+                    "content": desc,
+                    "lines": {
+                        "begin": ln,
+                        "end": ln,
+                    }
+                }
                 if _file in ddict:
                     ddict[_file].extend([noti])
                 else:
                     ddict[_file] = [noti]
     tab = [{"filename": key, "notifications": value} for key, value in
            ddict.iteritems()]
-    return {"pull": id, "files": tab}
+    return tab
+    #return {"pull": id, "files": tab}
 
 
 def get_pull_request_id(diff_url):
