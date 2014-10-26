@@ -31,11 +31,9 @@ def get_post(request):
 
         for x in formatting:
             if x.filename not in dict:
-                dict[x.filename] = {
-                    "notifications": x.notifications,
-                }
+                dict[x.filename] =  x.notifications
             else:
-                dict[x.filename].notifications.extend(x.notifications)
+                dict[x.filename].extend(x.notifications)
 
         merged = [
             {
