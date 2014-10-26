@@ -65,6 +65,7 @@ def astyle_check(full_folder_name):
         print "search completed"
         if header is not None:
             lines_old = header.group('lines_old').split(',')
+            print lines_old
             if len(lines_old) == 1:
                 begin = int(lines_old[0])
                 end = begin
