@@ -8,8 +8,10 @@ import json
 
 def parse_diff(diff_url):
     diff = urllib2.urlopen(diff_url).read()
-    diff_list = [match[13:].split(" ")[0] for match in re.findall(r'diff --git .*', diff)]
+    diff_list = [match[13:].split(" ")[0] for match in
+                 re.findall(r'diff --git .*', diff)]
     return diff_list
+
 
 def download_all_the_shit(d_url, br_name):
     f_name = '#'.join(d_url.split('/')[-4:])
@@ -27,18 +29,69 @@ def download_all_the_shit(d_url, br_name):
             try:
                 text_file.write(urllib2.urlopen(fi_url).read())
             except:
-		pass
+                pass
     return full_folder_name
 
 
 def cpp_check(full_folder_name):
     process = subprocess.Popen(
-        [expanduser("~") + "/cppcheck", "--enable=all", "--inconclusive", "--std=posix", full_folder_name + "/*"],
+        [expanduser("~") + "/cppcheck", "--enable=all", "--inconclusive",
+         "--std=posix", full_folder_name + "/*"],
         stderr=subprocess.PIPE)
     process.wait()
     (_, err) = process.communicate()
     return err.split("\n")
 
+def astyle_check(full_folder_name):
+    process = subprocess.Popen(
+        ['./run_astyle.sh', full_folder_name + '/'],
+        stderr=subprocess.PIPE)
+    process.wait()
+    (_, err) = process.communicate()
+
+    intervals = {}
+
+    print "##########ERR##########"
+    print err
+    print "$$$$$$$$$$ERR$$$$$$$$$$"
+
+    blocks_re = re.compile('^#$', re.MULTILINE)
+    # blocks = err.split('\n#\n')
+    blocks = blocks_re.split(err)
+
+    # old_re = re.compile('^&')
+    new_re = re.compile('^\^')
+
+    for line in blocks:
+        old_lines = new_re.split(line)[0].split('&').join('')
+        new_lines = new_re.split(line)[1:].join('')
+
+        print "old_lines=" + old_lines
+        print "new_lines=" + new_lines
+        #
+        # tokens = line.split('^')[0].split(':')
+        # if len(tokens) < 2: continue
+        # filename = tokens[0][1:]
+        # begin = tokens[1].split('\n')[0]
+        # end = tokens[-1].split('\n')[0]
+        #
+        # content = line.split('^')[1:].
+        #
+        # if not filename in intervals:
+        #     intervals[filename] = [];
+        #
+        # intervals[filename].append({
+        #     'begin': int(begin),
+        #     'end': int(end),
+        #     'content': '',
+        # })
+
+    # print "######ODP################"
+    # print intervals
+    # print "$$$$$$$$$$$$"
+
+    # return [{"filename": key, "intervals": value} for key, value in intervals.iteritems() ];
+    return []
 
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}
@@ -47,7 +100,8 @@ def parse_cppcheck_result(res, id, full_folder_name):
             if line[0:len(full_folder_name) + 1] == "[" + full_folder_name:
                 nline = line[len(full_folder_name) + 2:]
                 phrases = nline.split(":", 2)
-                (_file, ln, tmp) = (phrases[0], phrases[1][:-1], phrases[2][1:])
+                (_file, ln, tmp) = (
+                phrases[0], phrases[1][:-1], phrases[2][1:])
                 desc = tmp.split(") ", 1)
                 types = desc[0][1:].split(", ")
                 desc = desc[1]
@@ -56,8 +110,10 @@ def parse_cppcheck_result(res, id, full_folder_name):
                     ddict[_file].extend([noti])
                 else:
                     ddict[_file] = [noti]
-    tab = [{"filename": key, "notifications": value} for key, value in ddict.iteritems()]
+    tab = [{"filename": key, "notifications": value} for key, value in
+           ddict.iteritems()]
     return {"pull": id, "files": tab}
+
 
 def get_pull_request_id(diff_url):
     return diff_url.split("/")[-1:][0].split('.')[0]

@@ -7,4 +7,5 @@ from YouCheck import views
 urlpatterns = patterns('',
     url(r'^$', views.get_post),
     url(r'^client/(?P<user_name>\w+)/(?P<repo_name>\w+)/(?P<pull_id>\d+)$', views.client),
+    url(r'^format/(?P<user_name>\w+)/(?P<repo_name>\w+)/(?P<pull_id>\d+)$', views.format),
 )

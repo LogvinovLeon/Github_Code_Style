@@ -19,14 +19,37 @@ def get_post(request):
             text_file.write(json.dumps(parse_cppcheck_result(res, pull_request_id, full_folder_name), indent=2))
         except:
             pass
+
+    with open(full_folder_name + "/formatting.json", "w") as formatting_file:
+        try:
+            formatting_file.write(json.dumps(astyle_check(full_folder_name), indent=2))
+        except:
+            pass
+
     return HttpResponse(request)
 
 @csrf_exempt
 def client(request, user_name, repo_name, pull_id):
     file_name = os.path.join(expanduser("~"),
-                             "pull_request", '#'.join([user_name, repo_name, pull_id + ".diff"]),
+                             "pull_requests", '#'.join([user_name, repo_name, "pull", pull_id + ".diff"]),
                              "result.json")
+    print file_name
     if os.path.exists(file_name):
-        with open(file_name, "w") as _file:
-            return HttpResponse(_file.read())
-    return Http404()
+	with open(file_name, "r") as _file:
+            content = _file.read()
+	    print content
+	    return HttpResponse(content, mimetype='application/json')
+    return HttpResponse(status=102)
+
+@csrf_exempt
+def format(request, user_name, repo_name, pull_id):
+    file_name = os.path.join(expanduser("~"),
+                             "pull_requests", '#'.join([user_name, repo_name, "pull", pull_id + ".diff"]),
+                             "formatting.json")
+    print file_name
+    if os.path.exists(file_name):
+	with open(file_name, "r") as _file:
+            content = _file.read()
+	    print content
+	    return HttpResponse(content, mimetype='application/json')
+    return HttpResponse(status=102)

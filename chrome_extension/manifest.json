@@ -3,7 +3,7 @@
 
     "name": "cchub",
     "description": "cchub description",
-    "version": "1.0",
+    "version": "0.0.0.1",
 
     "permissions": [
         "https://github.com/*",
