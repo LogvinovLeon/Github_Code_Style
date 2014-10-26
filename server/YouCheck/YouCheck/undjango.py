@@ -54,10 +54,12 @@ def astyle_check(full_folder_name):
     begin = 0
     end = 0
 
-    print "err="
-    print err.split('\n')
+    # print "err="
+    lines = err.split('\n')
+    # print err.split('\n')
+    print "len(lines) = " + str(len(lines))
 
-    for line in err.split('\n'):
+    for line in lines:
         print "line=" + line
         header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
         print "search completed"
