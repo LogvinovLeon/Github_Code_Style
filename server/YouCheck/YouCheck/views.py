@@ -29,17 +29,17 @@ def get_post(request):
 
         print "END###"
 
-        for x in formatting:
-            filename = x['filename']
-            notifs = x['notifications']
-            print "FILENAME### " + filename
-            print "notifs="
-            print notifs
-
-            print "dict[filename]="
-
-            if filename in dict:
-                dict[filename] += notifs
+        # for x in formatting:
+        #     filename = x['filename']
+        #     notifs = x['notifications']
+        #     print "FILENAME### " + filename
+        #     print "notifs="
+        #     print notifs
+        #
+        #     print "dict[filename]="
+        #
+        #     if filename in dict:
+        #         dict[filename] += notifs
                 # print dict[filename]
             # else: dict[filename] = notifs
         #     if filename not in dict:
