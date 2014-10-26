@@ -69,9 +69,9 @@ def astyle_check(full_folder_name):
             if len(lines_old) == 1:
                 begin = int(lines_old[0])
                 end = begin
-        #     else:
-        #         begin = int(lines_old[0])
-        #         end = int(lines_old[1])
+                # else:
+                #         begin = int(lines_old[0])
+                #         end = int(lines_old[1])
             print "begin=" + str(begin) + ", end=" + str(end)
         else:
             print "not a header"
