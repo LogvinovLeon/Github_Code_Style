@@ -55,7 +55,7 @@ def astyle_check(full_folder_name):
     end = 0
 
     print "err="
-    err.split('\n')
+    print err.split('\n')
 
     for line in err.split('\n'):
         print "line=" + line
