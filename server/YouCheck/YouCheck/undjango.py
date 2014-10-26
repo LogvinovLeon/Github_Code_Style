@@ -62,6 +62,8 @@ def astyle_check(full_folder_name):
     for line in lines:
         print "line=" + line
         header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
+        old_line = re.search('<(?P<old_line>.*)', line)
+        new_line = re.search('>(?P<new_line>.*)', line)
         print "search completed"
         if header is not None:
             lines_old = header.group('lines_old').split(',')
@@ -74,8 +76,13 @@ def astyle_check(full_folder_name):
                 begin = int(lines_old[0])
                 end = int(lines_old[1])
             print "begin=" + str(begin) + ", end=" + str(end)
+        elif old_line is not None:
+            print "this is old line, ignoring"
+        elif new_line is not None:
+            line = new_line.group('new_line')
+            print "new_line=" + line
         else:
-            print "not a header"
+            print "invalid line"
 
     return []
 
