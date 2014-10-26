@@ -49,15 +49,26 @@ def astyle_check(full_folder_name):
     process.wait()
     (_, err) = process.communicate()
 
-    intervals = [ {
-                      "begin": x.split(":")[1],
-                      "end": x.split(":")[-1],
-                  } for x in err.split("#") if len(x) >= 2
-                ]
+    intervals = {}
+
+    for line in err.split('#'):
+        tokens = line.split(':')
+        if len(tokens) < 2: continue
+        filename = tokens[0]
+        begin = tokens[1]
+        end = tokens[-1]
+
+        if not filename in intervals:
+            intervals[filename] = [];
+
+        intervals[filename].append({
+            'begin': begin,
+            'end': end,
+        })
 
     print intervals
 
-    return err.split('\n')
+    return [ ]
 
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}
