@@ -50,8 +50,7 @@ def astyle_check(full_folder_name):
     (_, err) = process.communicate()
     print err
     return err.split('\n')
-    )
-
+    
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}
     for line in res:
