@@ -39,12 +39,13 @@ def get_post(request):
             # else:
             dict[filename].extend(x['notifications'])
 
-        merged = [
-            {
-                'filename': key,
-                'notifications': value
-            } for key, value in dict.iteritems()
-        ]
+        # merged = [
+        #     {
+        #         'filename': key,
+        #         'notifications': value
+        #     } for key, value in dict.iteritems()
+        # ]
+        merged = dict
 
         result = {"pull": pull_request_id, "files": merged}
         text_file.write(json.dumps(result, indent=2))
