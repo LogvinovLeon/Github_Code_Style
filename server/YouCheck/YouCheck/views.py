@@ -35,6 +35,9 @@ def get_post(request):
             print "FILENAME### " + filename
             print "notifs="
             print notifs
+
+            print "dict[filename]="
+            print dict[filename]
         #     if filename not in dict:
         #         dict[filename] = []
         #         # pass
