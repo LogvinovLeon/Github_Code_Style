@@ -105,7 +105,7 @@ def astyle_check(full_folder_name):
                 files.append(current_file)
 
             current_file = {
-                'filename': filename,
+                'filename': filename[2:],
                 'notifications': [],
             }
 
