@@ -145,7 +145,8 @@ def parse_cppcheck_result(res, full_folder_name):
                     ddict[_file] = [noti]
     tab = [{"filename": key, "notifications": value} for key, value in
            ddict.iteritems()]
-    return tab
+    # return tab
+    return ddict
     #return {"pull": id, "files": tab}
 
 

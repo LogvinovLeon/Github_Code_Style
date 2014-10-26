@@ -19,11 +19,7 @@ def get_post(request):
         #pull_request_id
         ccheck = parse_cppcheck_result(res, full_folder_name)
         formatting = astyle_check(full_folder_name)
-        dict = {
-            x['filename']: {
-                x['notifications'],
-            } for x in ccheck
-        }
+        dict = ccheck
 
         print "FORMATTING###"
         print formatting
