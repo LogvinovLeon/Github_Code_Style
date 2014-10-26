@@ -59,7 +59,7 @@ def astyle_check(full_folder_name):
         tokens = line.split(':')
         if len(tokens) < 2: continue
         filename = tokens[0]
-        begin = tokens[1]
+        begin = tokens[1].split('\n')[0]
         end = tokens[-1]
 
         if not filename in intervals:
