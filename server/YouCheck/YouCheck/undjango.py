@@ -60,7 +60,7 @@ def astyle_check(full_folder_name):
         if len(tokens) < 2: continue
         filename = tokens[0]
         begin = tokens[1].split('\n')[0]
-        end = tokens[-1]
+        end = tokens[-1].split('\n')[0]
 
         if not filename in intervals:
             intervals[filename] = [];
