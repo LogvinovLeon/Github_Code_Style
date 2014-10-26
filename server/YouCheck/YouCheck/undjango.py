@@ -96,7 +96,7 @@ def astyle_check(full_folder_name):
             current_interval['content'] += nl + '\n'
         elif filename_re is not None:
             print "this is filename"
-            filename = filename_re.groups('filename')
+            filename = filename_re.group('filename')
 
             if current_interval is not None:
                 current_file['notifications'].append(current_interval)
