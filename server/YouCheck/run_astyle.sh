@@ -11,7 +11,7 @@ for file in $files; do
 	echo $file
 	astyle $file 2>&1 >/dev/null
 	out=$(diff --unchanged-line-format="#" --old-line-format="$file:%dn%c'\012'" --new-line-format="" $file ${file}.orig |& sed 's/#\+/#\n/g') 
-	echo "${out#?}"
+	echo "${out#?}" >&2
 	[ -f ${file}.orig ] && rm $file && mv ${file}.orig $file 2>/dev/null
 done
 
