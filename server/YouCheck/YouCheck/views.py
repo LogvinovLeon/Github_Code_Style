@@ -37,8 +37,10 @@ def get_post(request):
             print notifs
 
             print "dict[filename]="
-            if filename in dict: print dict[filename]
-            else: dict[filename] = notifs
+            if filename in dict:
+                dict[filename].extend(notifs)
+                # print dict[filename]
+            # else: dict[filename] = notifs
         #     if filename not in dict:
         #         dict[filename] = []
         #         # pass
@@ -46,13 +48,13 @@ def get_post(request):
         #     # else:
         #     dict[filename].extend(x['notifications'])
 
-        # merged = [
-        #     {
-        #         'filename': key,
-        #         'notifications': value
-        #     } for key, value in dict.iteritems()
-        # ]
-        merged = dict
+        merged = [
+            {
+                'filename': key,
+                'notifications': value
+            } for key, value in dict.iteritems()
+        ]
+        # merged = dict
 
         result = {"pull": pull_request_id, "files": merged}
         text_file.write(json.dumps(result, indent=2))
