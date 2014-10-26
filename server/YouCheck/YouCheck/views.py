@@ -25,6 +25,9 @@ def get_post(request):
                 } for x in cpp_check
             }
 
+            print "FORMATTING###"
+            print formatting
+
             for x in formatting:
                 if x.filename not in dict:
                     dict[x.filename] = {
