@@ -43,55 +43,78 @@ def cpp_check(full_folder_name):
     return err.split("\n")
 
 def astyle_check(full_folder_name):
+    print "astyle_check"
     process = subprocess.Popen(
         ['./run_astyle.sh', full_folder_name + '/'],
         stderr=subprocess.PIPE)
     process.wait()
     (_, err) = process.communicate()
 
-    intervals = {}
+    files = []
 
-    print "##########ERR##########"
-    print err
-    print "$$$$$$$$$$ERR$$$$$$$$$$"
+    lines = err.split('\n')
 
-    blocks_re = re.compile('^#$', re.MULTILINE)
-    # blocks = err.split('\n#\n')
-    blocks = blocks_re.split(err)
+    print "len(lines) = " + str(len(lines))
 
-    # old_re = re.compile('^&')
-    new_re = re.compile('^\^')
+    current_file = None
+    current_interval = None
 
-    for line in blocks:
-        old_lines = new_re.split(line)[0].split('&').join('')
-        new_lines = new_re.split(line)[1:].join('')
+    for line in lines:
+        print "line=" + line
+        header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
+        old_line = re.search('<(?P<old_line>.*)', line)
+        new_line = re.search('>(?P<new_line>.*)', line)
+        filename_re = re.search('filename=(?P<filename>.*)', line)
+        print "search completed"
+        if header is not None:
+            begin=0
+            end=0
 
-        print "old_lines=" + old_lines
-        print "new_lines=" + new_lines
-        #
-        # tokens = line.split('^')[0].split(':')
-        # if len(tokens) < 2: continue
-        # filename = tokens[0][1:]
-        # begin = tokens[1].split('\n')[0]
-        # end = tokens[-1].split('\n')[0]
-        #
-        # content = line.split('^')[1:].
-        #
-        # if not filename in intervals:
-        #     intervals[filename] = [];
-        #
-        # intervals[filename].append({
-        #     'begin': int(begin),
-        #     'end': int(end),
-        #     'content': '',
-        # })
+            lines_old = header.group('lines_old').split(',')
+            if len(lines_old) == 1:
+                begin = int(lines_old[0])
+                end = begin
+            else:
+                begin = int(lines_old[0])
+                end = int(lines_old[1])
 
-    # print "######ODP################"
-    # print intervals
-    # print "$$$$$$$$$$$$"
+            print "begin=" + str(begin) + ", end=" + str(end)
 
-    # return [{"filename": key, "intervals": value} for key, value in intervals.iteritems() ];
-    return []
+            if current_interval is not None:
+                current_file['notifications'].append(current_interval)
+
+            current_interval = {
+                'begin': begin,
+                'end': end,
+                'content': '',
+            }
+        elif old_line is not None:
+            print "this is old line, ignoring"
+        elif new_line is not None:
+            nl = new_line.group('new_line')
+            print "new_line=" + nl
+            current_interval['content'] += nl + '\n'
+        elif filename_re is not None:
+            print "this is filename"
+            filename = filename_re.group('filename')
+
+            if current_interval is not None:
+                current_file['notifications'].append(current_interval)
+
+            if current_file is not None:
+                files.append(current_file)
+
+            current_file = {
+                'filename': filename[2:],
+                'notifications': [],
+            }
+
+            print filename
+
+    # print 'files='
+    print files
+
+    return files
 
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}
