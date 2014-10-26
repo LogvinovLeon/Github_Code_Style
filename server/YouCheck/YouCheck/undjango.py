@@ -80,7 +80,7 @@ def astyle_check(full_folder_name):
             print "begin=" + str(begin) + ", end=" + str(end)
 
             if current_interval is not None:
-                current_file.append(current_interval)
+                current_file['notifications'].append(current_interval)
 
             current_interval = {
                 'begin': begin,
@@ -92,18 +92,21 @@ def astyle_check(full_folder_name):
         elif new_line is not None:
             nl = new_line.group('new_line')
             print "new_line=" + nl
-            current_interval['content'] += nl
+            current_interval['content'] += nl + '\n'
         elif not line=='---':
             print "this is filename"
             filename = line
 
             if current_interval is not None:
-                current_file.append(current_interval)
+                current_file['notifications'].append(current_interval)
 
             if current_file is not None:
                 files.append(current_file)
 
-            current_file = []
+            current_file = {
+                'filename': filename,
+                'notifications': [],
+            }
 
             print filename
 
