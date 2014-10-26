@@ -61,17 +61,17 @@ def astyle_check(full_folder_name):
 
     for line in lines:
         print "line=" + line
-        header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
-        print "search completed"
-        if header is not None:
-            lines_old = header.group('lines_old').split(',')
-            if len(lines_old) == 1:
-                begin = int(lines_old[0])
-                end = begin
-            else:
-                begin = int(lines_old[0])
-                end = int(lines_old[1])
-            print "begin=" + begin + ", end=" + end
+        # header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
+        # print "search completed"
+        # if header is not None:
+        #     lines_old = header.group('lines_old').split(',')
+        #     if len(lines_old) == 1:
+        #         begin = int(lines_old[0])
+        #         end = begin
+        #     else:
+        #         begin = int(lines_old[0])
+        #         end = int(lines_old[1])
+        #     print "begin=" + begin + ", end=" + end
 
     return []
 
