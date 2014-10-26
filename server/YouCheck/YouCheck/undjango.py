@@ -43,6 +43,7 @@ def cpp_check(full_folder_name):
     return err.split("\n")
 
 def astyle_check(full_folder_name):
+    print "astyle_check"
     process = subprocess.Popen(
         ['./run_astyle.sh', full_folder_name + '/'],
         stderr=subprocess.PIPE)
@@ -54,6 +55,7 @@ def astyle_check(full_folder_name):
     end = 0
 
     for line in err.split('\n'):
+        print "line=" + line
         header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
         if header is not None:
             lines_old = header.group('lines_old').split(',')
