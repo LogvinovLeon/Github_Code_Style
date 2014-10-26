@@ -54,7 +54,7 @@ def astyle_check(full_folder_name):
     print "##########ERR##########"
     print err
     print "$$$$$$$$$$ERR$$$$$$$$$$"
-    
+
     for line in err.split('#'):
         tokens = line.split(':')
         if len(tokens) < 2: continue
@@ -74,7 +74,7 @@ def astyle_check(full_folder_name):
     print intervals
     print "$$$$$$$$$$$$"
 
-    return [ ]
+    return [{"filename": key, "intervals": value} for key, value in intervals.iteritems() ];
 
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}

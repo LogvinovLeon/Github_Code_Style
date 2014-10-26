@@ -19,7 +19,13 @@ def get_post(request):
             text_file.write(json.dumps(parse_cppcheck_result(res, pull_request_id, full_folder_name), indent=2))
         except:
             pass
-    astyle_check(full_folder_name)
+        
+    with open(full_folder_name + "/formatting.json", "w") as formatting_file:
+        try:
+            formatting_file.write(json.dumps(astyle_check(full_folder_name), indent=2))
+        except:
+            pass
+
     return HttpResponse(request)
 
 @csrf_exempt
