@@ -66,7 +66,9 @@ def astyle_check(full_folder_name):
             'end': end,
         })
 
-    print "######ODP################" + intervals + "$$$$$$$$$$$$"
+    print "######ODP################"
+    print intervals
+    print "$$$$$$$$$$$$"
 
     return [ ]
 
