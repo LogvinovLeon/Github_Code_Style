@@ -16,6 +16,7 @@ def parse_diff(diff_url):
 def download_all_the_shit(d_url, br_name):
     f_name = '#'.join(d_url.split('/')[-4:])
     diff_files = parse_diff(d_url)
+    diff_files.extend(['.astylerc'])
     full_folder_name = expanduser("~") + "/pull_requests/" + f_name
     for _file in diff_files:
         my_path_file = full_folder_name + "/" + _file
@@ -61,7 +62,7 @@ def astyle_check(full_folder_name):
 
     for line in lines:
         print "line=" + line
-        header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
+        header = re.search('^(?P<lines_new>\d+(,\d+)?)c(?P<lines_old>\d+(,\d+)?)', line)
         old_line = re.search('<(?P<old_line>.*)', line)
         new_line = re.search('>(?P<new_line>.*)', line)
         filename_re = re.search('filename=(?P<filename>.*)', line)
