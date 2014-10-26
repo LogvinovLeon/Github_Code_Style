@@ -50,48 +50,21 @@ def astyle_check(full_folder_name):
     (_, err) = process.communicate()
 
     intervals = {}
+    begin = 0
+    end = 0
 
-    #print "##########ERR##########"
-    #print err
-    #print "$$$$$$$$$$ERR$$$$$$$$$$"
+    for line in err.split('\n'):
+        header = re.search('^(?P<lines_old>\d+(,\d+)?)c(?P<lines_new>\d+(,\d+)?)', line)
+        if header is not None:
+            lines_old = header.group('lines_old').split(',')
+            if len(lines_old) == 1:
+                begin = int(lines_old[0])
+                end = begin
+            else:
+                begin = int(lines_old[0])
+                end = int(lines_old[1])
+            print "begin=" + begin + ", end=" + end
 
-    #blocks_re = re.compile('^#$', re.MULTILINE)
-    blocks = err.split('\n#\n')
-    print blocks
-    #blocks = blocks_re.split(err)
-
-    # old_re = re.compile('^&')
-    #new_re = re.compile('^\^')
-
-    #for line in blocks:
-     #   old_lines = new_re.split(line)[0].split('&').join('')
-      #  new_lines = new_re.split(line)[1:].join('')
-
-       # print "old_lines=" + old_lines
-        #print "new_lines=" + new_lines
-        #
-        # tokens = line.split('^')[0].split(':')
-        # if len(tokens) < 2: continue
-        # filename = tokens[0][1:]
-        # begin = tokens[1].split('\n')[0]
-        # end = tokens[-1].split('\n')[0]
-        #
-        # content = line.split('^')[1:].
-        #
-        # if not filename in intervals:
-        #     intervals[filename] = [];
-        #
-        # intervals[filename].append({
-        #     'begin': int(begin),
-        #     'end': int(end),
-        #     'content': '',
-        # })
-
-    # print "######ODP################"
-    # print intervals
-    # print "$$$$$$$$$$$$"
-
-    # return [{"filename": key, "intervals": value} for key, value in intervals.iteritems() ];
     return []
 
 def parse_cppcheck_result(res, id, full_folder_name):
