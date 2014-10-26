@@ -107,10 +107,10 @@ def astyle_check(full_folder_name):
 
             print filename
 
-    print 'files='
-    print files
+    # print 'files='
+    # print files
 
-    return []
+    return files
 
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}
