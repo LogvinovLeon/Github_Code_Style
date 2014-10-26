@@ -40,14 +40,7 @@ def get_post(request):
 
             if filename in dict:
                 dict[filename].extend(notifs)
-                # print dict[filename]
             else: dict[filename] = notifs
-        #     if filename not in dict:
-        #         dict[filename] = []
-        #         # pass
-        #         # dict[filename] = x['notifications']
-        #     # else:
-        #     dict[filename].extend(x['notifications'])
 
         merged = [
             {
@@ -59,14 +52,9 @@ def get_post(request):
 
         result = {"pull": pull_request_id, "files": merged}
         text_file.write(json.dumps(result, indent=2))
-        # except:
-        #     pass
 
     with open(full_folder_name + "/formatting.json", "w") as formatting_file:
-        # try:
         formatting_file.write(json.dumps(astyle_check(full_folder_name), indent=2))
-        # except:
-        #     pass
 
     return HttpResponse(request)
 
