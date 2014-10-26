@@ -87,7 +87,7 @@ def astyle_check(full_folder_name):
                 'lines': {
                     'begin': begin,
                     'end': end,
-                }
+                },
                 'content': '',
                 'type': ['formatting']
             }
