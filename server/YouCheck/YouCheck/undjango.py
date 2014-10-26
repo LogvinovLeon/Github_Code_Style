@@ -93,7 +93,7 @@ def astyle_check(full_folder_name):
             nl = new_line.group('new_line')
             print "new_line=" + nl
             current_interval['content'] += nl
-        else:
+        elif not line=='---':
             print "this is filename"
             filename = line
 
