@@ -56,7 +56,7 @@ def astyle_check(full_folder_name):
     print "$$$$$$$$$$ERR$$$$$$$$$$"
 
     blocks_re = re.compile('^#$')
-    blocks = blocks_re.split(err)
+    blocks = err.split('\n#\n')
 
     # old_re = re.compile('^&')
     new_re = re.compile('^\^')
