@@ -34,7 +34,7 @@ def get_post(request):
             print "FILENAME### " + filename
             if filename not in dict:
                 # pass
-                dict[filename] = x['notifications']
+                # dict[filename] = x['notifications']
             else:
                 dict[filename].extend(x['notifications'])
 
