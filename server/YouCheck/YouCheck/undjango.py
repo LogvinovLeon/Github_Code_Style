@@ -44,13 +44,13 @@ def cpp_check(full_folder_name):
 
 def astyle_check(full_folder_name):
     process = subprocess.Popen(
-        ['./run_astyle.sh', full_folder_name + '/'],
+        [expanduser("~") + '/run_astyle.sh', full_folder_name + '/'],
         stderr=subprocess.PIPE)
     process.wait()
     (_, err) = process.communicate()
-    print err
+    print "ANSWER SOB $#@!%^&*&^$$ ######" + err
     return err.split('\n')
-    
+
 def parse_cppcheck_result(res, id, full_folder_name):
     ddict = {}
     for line in res:
