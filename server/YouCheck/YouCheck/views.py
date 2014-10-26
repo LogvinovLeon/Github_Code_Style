@@ -24,6 +24,11 @@ def get_post(request):
         print "FORMATTING###"
         print formatting
 
+        print "CCHECK###"
+        print ccheck
+
+        print "END###"
+
         for x in formatting:
             if x.filename not in dict:
                 dict[x.filename] = {
