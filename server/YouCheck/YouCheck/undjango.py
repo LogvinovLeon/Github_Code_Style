@@ -108,7 +108,7 @@ def astyle_check(full_folder_name):
             print filename
 
     # print 'files='
-    # print files
+    print files
 
     return files
 
