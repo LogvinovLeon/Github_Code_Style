@@ -30,10 +30,10 @@ def get_post(request):
         print "END###"
 
         for x in formatting:
-            if x.filename not in dict:
-                dict[x.filename] =  x.notifications
+            if x['filename'] not in dict:
+                dict[x['filename']] =  x['notifications']
             else:
-                dict[x.filename].extend(x.notifications)
+                dict[x['filename']].extend(x['notifications'])
 
         merged = [
             {
