@@ -15,38 +15,38 @@ def get_post(request):
     full_folder_name = download_all_the_shit(diff_url, branch_name)
     res = cpp_check(full_folder_name)
     with open(full_folder_name + "/result.json", "w") as text_file:
-        try:
-            #pull_request_id
-            cpp_check = parse_cppcheck_result(res, full_folder_name)
-            formatting = astyle_check(full_folder_name)
-            dict = {
-                x.filename: {
-                    x.notifications,
-                } for x in cpp_check
-            }
+        # try:
+        #pull_request_id
+        cpp_check = parse_cppcheck_result(res, full_folder_name)
+        formatting = astyle_check(full_folder_name)
+        dict = {
+            x.filename: {
+                x.notifications,
+            } for x in cpp_check
+        }
 
-            print "FORMATTING###"
-            print formatting
+        print "FORMATTING###"
+        print formatting
 
-            for x in formatting:
-                if x.filename not in dict:
-                    dict[x.filename] = {
-                        "notifications": x.notifications,
-                    }
-                else:
-                    dict[x.filename].notifications.extend(x.notifications)
+        for x in formatting:
+            if x.filename not in dict:
+                dict[x.filename] = {
+                    "notifications": x.notifications,
+                }
+            else:
+                dict[x.filename].notifications.extend(x.notifications)
 
-            merged = [
-                {
-                    'filename': key,
-                    'notifications': value
-                } for key, value in dict.iteritems()
-            ]
+        merged = [
+            {
+                'filename': key,
+                'notifications': value
+            } for key, value in dict.iteritems()
+        ]
 
-            result = {"pull": pull_request_id, "files": merged}
-            text_file.write(json.dumps(result, indent=2))
-        except:
-            pass
+        result = {"pull": pull_request_id, "files": merged}
+        text_file.write(json.dumps(result, indent=2))
+        # except:
+        #     pass
 
     with open(full_folder_name + "/formatting.json", "w") as formatting_file:
         # try:
