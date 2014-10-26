@@ -50,14 +50,14 @@ def astyle_check(full_folder_name):
     process.wait()
     (_, err) = process.communicate()
 
-    intervals = {}
-    begin = 0
-    end = 0
+    files = []
 
-    # print "err="
     lines = err.split('\n')
-    # print err.split('\n')
+
     print "len(lines) = " + str(len(lines))
+
+    current_file = None
+    current_interval = None
 
     for line in lines:
         print "line=" + line
@@ -66,23 +66,49 @@ def astyle_check(full_folder_name):
         new_line = re.search('>(?P<new_line>.*)', line)
         print "search completed"
         if header is not None:
+            begin=0
+            end=0
+
             lines_old = header.group('lines_old').split(',')
-            print lines_old
-            print len(lines_old)
             if len(lines_old) == 1:
                 begin = int(lines_old[0])
                 end = begin
             else:
                 begin = int(lines_old[0])
                 end = int(lines_old[1])
+
             print "begin=" + str(begin) + ", end=" + str(end)
+
+            if current_interval is not None:
+                current_file.append(current_interval)
+
+            current_interval = {
+                'begin': begin,
+                'end': end,
+                'content': '',
+            }
         elif old_line is not None:
             print "this is old line, ignoring"
         elif new_line is not None:
-            line = new_line.group('new_line')
-            print "new_line=" + line
+            nl = new_line.group('new_line')
+            print "new_line=" + nl
+            current_interval['content'] += nl
         else:
-            print "invalid line"
+            print "this is filename"
+            filename = line
+
+            if current_interval is not None:
+                current_file.append(current_interval)
+
+            if current_file is not None:
+                files.append(current_file)
+
+            current_file = []
+
+            print filename
+
+    print 'files='
+    print files
 
     return []
 
