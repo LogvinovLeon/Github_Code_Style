@@ -48,7 +48,15 @@ def astyle_check(full_folder_name):
         stderr=subprocess.PIPE)
     process.wait()
     (_, err) = process.communicate()
-    print "ANSWER SOB $#@!%^&*&^$$ ######" + err
+
+    intervals = [ {
+                      "begin": x.split(":")[1],
+                      "end": x.split(":")[-1],
+                  } for x in err.split("#")
+                ]
+
+    print intervals
+    
     return err.split('\n')
 
 def parse_cppcheck_result(res, id, full_folder_name):
