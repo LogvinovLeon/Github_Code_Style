@@ -32,7 +32,8 @@ def get_post(request):
         for x in formatting:
             filename = x['filename']
             print "FILENAME### " + filename
-            print "notifs=" + x['notifications']
+            print "notifs="
+            print x['notifications']
             if filename not in dict:
                 dict[filename] = []
                 # pass
