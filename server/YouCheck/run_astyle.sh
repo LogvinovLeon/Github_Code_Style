@@ -10,8 +10,9 @@ files=$(find -type f -and -not -iname '*result.json' -and -not -iname '*formatti
 for file in $files; do
 	echo $file
 	astyle $file 2>&1 >/dev/null
-	out=$(diff --unchanged-line-format="#" --old-line-format="$file:%dn%c'\012'" --new-line-format="^$file:%L" $file ${file}.orig |& sed 's/#\+/#\n/g' |& sed 's/^\^/\^/g') 
-	echo "${out}" >&2
+#	out=$(diff --unchanged-line-format="#" --old-line-format="&$file:%dn%c'\012'" --new-line-format="^$file:%L" $file ${file}.orig |& sed 's/^#\+/#\n/g' |& sed 's/^\^/\^/g') 
+	diff $file ${file}.orig >&2
+#	echo "${out}" >&2
 	for line in $out; do
 #		[ "$line" == "#" ] && echo $line >&2 || echo ${line#?} 1>&2
 		:
