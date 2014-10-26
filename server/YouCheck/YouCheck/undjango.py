@@ -51,23 +51,24 @@ def astyle_check(full_folder_name):
 
     intervals = {}
 
-    print "##########ERR##########"
-    print err
-    print "$$$$$$$$$$ERR$$$$$$$$$$"
+    #print "##########ERR##########"
+    #print err
+    #print "$$$$$$$$$$ERR$$$$$$$$$$"
 
-    blocks_re = re.compile('^#$', re.MULTILINE)
-    # blocks = err.split('\n#\n')
-    blocks = blocks_re.split(err)
+    #blocks_re = re.compile('^#$', re.MULTILINE)
+    blocks = err.split('\n#\n')
+    print blocks
+    #blocks = blocks_re.split(err)
 
     # old_re = re.compile('^&')
-    new_re = re.compile('^\^')
+    #new_re = re.compile('^\^')
 
-    for line in blocks:
-        old_lines = new_re.split(line)[0].split('&').join('')
-        new_lines = new_re.split(line)[1:].join('')
+    #for line in blocks:
+     #   old_lines = new_re.split(line)[0].split('&').join('')
+      #  new_lines = new_re.split(line)[1:].join('')
 
-        print "old_lines=" + old_lines
-        print "new_lines=" + new_lines
+       # print "old_lines=" + old_lines
+        #print "new_lines=" + new_lines
         #
         # tokens = line.split('^')[0].split(':')
         # if len(tokens) < 2: continue
