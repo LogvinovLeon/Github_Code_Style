@@ -112,6 +112,8 @@ def astyle_check(full_folder_name):
                 'notifications': [],
             }
 
+            current_interval = None
+
             print filename
 
     # print 'files='
