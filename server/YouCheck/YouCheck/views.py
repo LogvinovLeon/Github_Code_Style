@@ -21,10 +21,10 @@ def get_post(request):
             pass
 
     with open(full_folder_name + "/formatting.json", "w") as formatting_file:
-        try:
-            formatting_file.write(json.dumps(astyle_check(full_folder_name), indent=2))
-        except:
-            pass
+        # try:
+        formatting_file.write(json.dumps(astyle_check(full_folder_name), indent=2))
+        # except:
+        #     pass
 
     return HttpResponse(request)
 
