@@ -52,11 +52,11 @@ def astyle_check(full_folder_name):
     intervals = [ {
                       "begin": x.split(":")[1],
                       "end": x.split(":")[-1],
-                  } for x in err.split("#")
+                  } for x in err.split("#") if len(x) >= 2
                 ]
 
     print intervals
-    
+
     return err.split('\n')
 
 def parse_cppcheck_result(res, id, full_folder_name):
