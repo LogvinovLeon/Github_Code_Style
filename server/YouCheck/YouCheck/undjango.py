@@ -51,6 +51,10 @@ def astyle_check(full_folder_name):
 
     intervals = {}
 
+    print "##########ERR##########"
+    print err
+    print "$$$$$$$$$$ERR$$$$$$$$$$"
+    
     for line in err.split('#'):
         tokens = line.split(':')
         if len(tokens) < 2: continue
